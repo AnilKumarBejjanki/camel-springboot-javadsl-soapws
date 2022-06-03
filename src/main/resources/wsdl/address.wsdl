@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://esb.training.com/esb_adapter" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="getaddress"
+	targetNamespace="http://esb.training.com/esb_adapter">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="http://esb.training.com/esb_adapter">
+			<xsd:include schemaLocation="address.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="getAddressRequest">
+		<wsdl:part name="in" element="tns:getAddressRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getAddressResponse">
+		<wsdl:part name="out" element="tns:getAddressResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="AddressEndpoint">
+		<wsdl:operation name="getAddress">
+			<wsdl:input message="tns:getAddressRequest"></wsdl:input>
+			<wsdl:output message="tns:getAddressResponse"></wsdl:output>
+		</wsdl:operation>		
+	</wsdl:portType>
+	<wsdl:binding name="AddressBinding" type="tns:AddressEndpoint">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getAddress">
+			<soap:operation
+				soapAction="http://esb.training.com/esb_adapter/Address/getAddress" />
+			<wsdl:input>
+				<soap:body parts="in" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="out" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>		
+	</wsdl:binding>
+	<wsdl:service name="AddressService">
+		<wsdl:port binding="tns:AddressBinding" name="AddressPort">
+			<soap:address
+				location="http://localhost:8090/Address" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
