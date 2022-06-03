@@ -1,0 +1,1 @@
+# camel-springboot-javadsl-soapws
