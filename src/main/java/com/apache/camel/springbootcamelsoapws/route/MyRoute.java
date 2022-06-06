@@ -31,8 +31,8 @@ public class MyRoute extends RouteBuilder {
 		cxf.setWsdlURL("classpath:wsdl/address.wsdl");
 		
 		cxf.setCamelContext(camelContext);
-		
-		from(cxf).process(camelProcessor).log("SOAP IS CALLED!!!").end();
+		System.out.println("CXF OPERATION NAME IS :::"+cxf.getDefaultOperationName());
+		from(cxf).log("Cxf properties are :::").process(camelProcessor).log("SOAP IS CALLED!!!").end();
 
 	}
 

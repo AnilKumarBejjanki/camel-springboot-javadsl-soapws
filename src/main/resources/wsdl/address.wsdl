@@ -8,6 +8,7 @@
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 			targetNamespace="http://esb.training.com/esb_adapter">
 			<xsd:include schemaLocation="address.xsd"/>
+			<xsd:include schemaLocation="name.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -17,11 +18,21 @@
 	<wsdl:message name="getAddressResponse">
 		<wsdl:part name="out" element="tns:getAddressResponse"></wsdl:part>
 	</wsdl:message>
+	<wsdl:message name="getNameRequest">
+		<wsdl:part name="in" element="tns:getNameRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getNameResponse">
+		<wsdl:part name="out" element="tns:getNameResponse"></wsdl:part>
+	</wsdl:message>
 
 	<wsdl:portType name="AddressEndpoint">
 		<wsdl:operation name="getAddress">
 			<wsdl:input message="tns:getAddressRequest"></wsdl:input>
 			<wsdl:output message="tns:getAddressResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getName">
+			<wsdl:input message="tns:getNameRequest"></wsdl:input>
+			<wsdl:output message="tns:getNameResponse"></wsdl:output>
 		</wsdl:operation>		
 	</wsdl:portType>
 	<wsdl:binding name="AddressBinding" type="tns:AddressEndpoint">
@@ -36,7 +47,17 @@
 			<wsdl:output>
 				<soap:body parts="out" use="literal" />
 			</wsdl:output>
-		</wsdl:operation>		
+		</wsdl:operation>	
+		<wsdl:operation name="getName">
+			<soap:operation
+				soapAction="http://esb.training.com/esb_adapter/Name/getName" />
+			<wsdl:input>
+				<soap:body parts="in" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="out" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>	
 	</wsdl:binding>
 	<wsdl:service name="AddressService">
 		<wsdl:port binding="tns:AddressBinding" name="AddressPort">
